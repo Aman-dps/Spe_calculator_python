@@ -10,8 +10,7 @@ pipeline {
         stage('Clone Git') {
             steps {
                 script {
-                    git branch: 'master',
-                        credentialsId: 'github_credentials',
+                    git branch: 'main',
                         url: "${GITHUB_REPO_URL}"
                 }
             }
