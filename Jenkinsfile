@@ -4,6 +4,8 @@ pipeline {
         DOCKER_IMAGE_NAME = 'scientific-calculator'
         GITHUB_REPO_URL = 'https://github.com/Aman-dps/Spe_calculator_python.git'
         DOCKER_HUB_USERNAME = 'atrocks'
+        // Allow Jenkins to find brew installations like 'docker' and 'python3' on Mac
+        PATH = "/opt/homebrew/bin:/usr/local/bin:$PATH"
     }
 
     stages {
@@ -18,13 +20,22 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install pytest'
+                // Create a virtual environment and use it to install pytest securely
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install pytest
+                '''
             }
         }
 
         stage('Test the Project') {
             steps {
-                sh 'pytest test_calculator.py'
+                // Activate the virtual environment from the previous step and run the tests
+                sh '''
+                    . venv/bin/activate
+                    pytest test_calculator.py
+                '''
             }
         }
 
