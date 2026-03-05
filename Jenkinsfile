@@ -4,6 +4,8 @@ pipeline {
         DOCKER_IMAGE_NAME = 'scientific-calculator'
         GITHUB_REPO_URL = 'https://github.com/Aman-dps/Spe_calculator_python.git'
         DOCKER_HUB_USERNAME = 'atrocks'
+        // Docker Desktop maps its executable here. This explicitly adds it to Jenkins PATH.
+        PATH = "/Applications/Docker.app/Contents/Resources/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
     }
 
     stages {
