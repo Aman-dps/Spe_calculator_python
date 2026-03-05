@@ -16,14 +16,15 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Test the Project in Docker') {
+            agent {
+                docker {
+                    image 'python:3.9-slim'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'pip install pytest'
-            }
-        }
-
-        stage('Test the Project') {
-            steps {
                 sh 'pytest test_calculator.py'
             }
         }
@@ -45,6 +46,5 @@ pipeline {
                 }
             }
         }
-
-        
+    }
 }
