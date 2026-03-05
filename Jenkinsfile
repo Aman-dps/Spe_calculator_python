@@ -20,13 +20,20 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'python3 -m pip install pytest'
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install pytest
+                '''
             }
         }
 
         stage('Test the Project') {
             steps {
-                sh 'python3 -m pytest test_calculator.py'
+                sh '''
+                    . venv/bin/activate
+                    pytest test_calculator.py
+                '''
             }
         }
 
