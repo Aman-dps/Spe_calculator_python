@@ -10,33 +10,34 @@ pipeline {
         stage('Clone Git') {
             steps {
                 script {
-                    git branch: 'main',
+                    git branch: 'master',
+                        credentialsId: 'github_credentials',
                         url: "${GITHUB_REPO_URL}"
                 }
             }
         }
 
-        stage('Test the Project in Docker') {
-            agent {
-                docker {
-                    image 'python:3.9-slim'
-                    reuseNode true
-                }
-            }
+        stage('Install Dependencies') {
             steps {
                 sh 'pip install pytest'
+            }
+        }
+
+        stage('Test the Project') {
+            steps {
                 sh 'pytest test_calculator.py'
             }
         }
-	
-	stage('Build Docker Image') {
+
+        stage('Build Docker Image') {
             steps {
                 script {
                     docker.build("${DOCKER_IMAGE_NAME}", '.')
                 }
             }
         }
-	stage('Push Docker Image to Docker Hub') {
+
+        stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
                     docker.withRegistry('', 'docker-hub-credential') {
@@ -46,5 +47,7 @@ pipeline {
                 }
             }
         }
+
+        
     }
 }
