@@ -28,6 +28,15 @@ pipeline {
             }
         }
 
+        stage('Debug Docker') {
+            steps {
+                sh 'echo PATH=$PATH'
+                sh 'which docker || true'
+                sh 'ls -l /usr/local/bin/docker || true'
+                sh 'docker --version || true'
+            }
+        }
+        
         stage('Build Docker Image') {
             steps {
                 script {
