@@ -7,7 +7,7 @@ class Calculator:
 
     @staticmethod
     def subtract(a, b):
-        return a - b
+        return a - b  #test for subtraction
 
     @staticmethod
     def multiply(a, b):
