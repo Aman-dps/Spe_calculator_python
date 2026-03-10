@@ -5,7 +5,7 @@ from calculator import Calculator
 class TestCalculator:
 
     def test_add(self):
-        assert Calculator.add(6, 5) == 11.0
+        assert Calculator.add(7, 8) == 15.0
         assert Calculator.add(-2, 1) == -1.0
         assert Calculator.add(0, 0) == 0.0
 
