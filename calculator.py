@@ -14,7 +14,7 @@ class Calculator:
         return a * b
 
     @staticmethod
-    def divide(a, b):
+    def divide(a, b): #test for division
         if b == 0:
             raise ValueError("Error! Division by zero.")
         return a / b
